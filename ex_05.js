@@ -1,15 +1,15 @@
+var seed = 0;
 function getID() {
-    return Math.floor(Math.random() * 10000);
-}
-function assignID(machineName, newSeed) {
-    seed = newSeed;
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
         setTimeout(() => {
-            const id = getID();
-            resolve(`${machineName}: ${id}`);
+            var id = Math.sin(seed++) * 10000;
+            id = parseInt(id < 0 ? -id : id);
+            resolve(id);
         }, 500);
     });
 }
-assignID("Oxygen filter", 1).then((value) => {
-    console.log(value);
-});
+async function assignID(MachineName, newSeed) {
+    seed = newSeed;
+    const id = await getID();
+    return MachineName + ": " + id;}
+  assignID("Oxygen filter", 1).then(value => {console.log(value);});
